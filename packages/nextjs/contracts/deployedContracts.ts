@@ -7,7 +7,7 @@ const deployedContracts = {
   devnet: {
     StarkPrice: {
       address:
-        "0x0449c7c91757ca068b00a2f2f227b18f52b9de08e3c2c624e6495bf2e4a0122a",
+        "0x012d9f5ded08e6d8d4e15f5fe7ac8e1b6baf41ec186bb6a5c6733f2a1dbede84",
       abi: [
         {
           type: "impl",
@@ -33,8 +33,6 @@ const deployedContracts = {
       ],
     },
     BitcoinPrice: {
-      address:
-        "0x06b31d92f1cf52ccad0154e2f758e05996aa81b6aeb9f09fc0d7897c3b13d588",
       abi: [
         {
           type: "impl",
@@ -42,14 +40,54 @@ const deployedContracts = {
           interface_name: "contracts::cryptos::BitcoinPrice::IBitcoinPrice",
         },
         {
+          type: "struct",
+          name: "core::integer::u256",
+          members: [
+            {
+              name: "low",
+              type: "core::integer::u128",
+            },
+            {
+              name: "high",
+              type: "core::integer::u128",
+            },
+          ],
+        },
+        {
           type: "interface",
           name: "contracts::cryptos::BitcoinPrice::IBitcoinPrice",
-          items: [],
+          items: [
+            {
+              type: "function",
+              name: "vote_yes",
+              inputs: [
+                {
+                  name: "amount_eth",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+          ],
         },
         {
           type: "constructor",
           name: "constructor",
-          inputs: [],
+          inputs: [
+            {
+              name: "end_date",
+              type: "core::integer::u64",
+            },
+            {
+              name: "vote_date_limit",
+              type: "core::integer::u64",
+            },
+            {
+              name: "reference_token_price",
+              type: "core::integer::u256",
+            },
+          ],
         },
         {
           type: "event",
@@ -61,7 +99,7 @@ const deployedContracts = {
     },
     EtherPrice: {
       address:
-        "0x02de4499f60bd3d0e498757ee113e554a38649cc938bb507d205ecf1467011f1",
+        "0x01707847f6a295fb623b48ac4af847d0958e23e2de340ff50983f2c4134843c1",
       abi: [
         {
           type: "impl",

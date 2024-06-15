@@ -15,3 +15,8 @@ casm = true
 
 [tool.fmt]
 sort-module-level-items = true
+
+[[tool.snforge.fork]]
+name = "TEST"
+url = "https://free-rpc.nethermind.io/mainnet-juno"
+block_id.number = "649020"
