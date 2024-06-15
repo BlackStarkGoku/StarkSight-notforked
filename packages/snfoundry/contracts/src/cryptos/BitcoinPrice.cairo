@@ -1,5 +1,10 @@
+use starknet::ContractAddress;
+
 #[starknet::interface]
-pub trait IBitcoinPrice<TContractState> {}
+pub trait IBitcoinPrice<TContractState> {
+    fn vote_yes(ref self: TContractState, amount: u256) -> ContractAddress;
+    
+}
 
 #[starknet::contract]
 pub mod BitcoinPrice {
@@ -7,6 +12,7 @@ pub mod BitcoinPrice {
     use starknet::ContractAddress;
     use openzeppelin::token::erc20::interface::{IERC20CamelDispatcher, IERC20CamelDispatcherTrait};
     use starknet::get_block_timestamp;
+    use starknet::get_caller_address;
 
     const ETH_CONTRACT_ADDRESS: felt252 =
         0x49D36570D4E46F48E99674BD3FCC84644DDD6B96F7C741B1562B82F9E004DC7;
@@ -41,7 +47,7 @@ pub mod BitcoinPrice {
         self.eth_token.write(IERC20CamelDispatcher { contract_address: eth_contract_address });
         self.balance.write(0);
         self.total_bets.write(0);
-        
+
         let current_bet = BetInfos {
             id: 0,
             total_amount: 0,
@@ -64,5 +70,9 @@ pub mod BitcoinPrice {
 
     #[abi(embed_v0)]
     impl BitcoinImpl of IBitcoinPrice<ContractState> {
+        fn vote_yes(ref self: ContractState, amount: u256) -> ContractAddress {
+            let caller_address = get_caller_address();
+            caller_address
+        }
     }
 }
